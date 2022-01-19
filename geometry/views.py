@@ -24,7 +24,7 @@ def circle_area(request, radius: int):
 #     return HttpResponseRedirect(f'/calculate_geometry/rectangle/{width}/{height}')
 
 
-# Второй способ (Используется функция reverse, она перенаправляем на имя(name=) из url.)
+# Второй способ (Используется функция reverse, она перенаправляет на имя(name=) заданное в urlpatterns.)
 def get_rectangle_area(request, width: int, height: int):
     redirect_url_rectangle = reverse('rectangle-name', args=(width, height))
     return HttpResponseRedirect(redirect_url_rectangle)
