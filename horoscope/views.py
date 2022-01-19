@@ -36,7 +36,7 @@ def index(request):
 
 def get_ingo_about_sign_zodiac(request, sign_zodiac: str):
     description = zodiac_dict.get(sign_zodiac, None)
-    if description:  # Если ввели что-то, что равно одному из ключей(key) в словаре, то возвращаем значение(value).
+    if description:  # Если ввели что-то, что равно одному из ключей(key) в словаре, то возвращаем значение(value) этого ключа.
         return HttpResponse(description)
     else:
         return HttpResponseNotFound(f"Неизвестный знак задиака - {sign_zodiac}.")
