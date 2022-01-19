@@ -19,6 +19,14 @@ zodiac_dict = {
     "pisces": "Рыбы - двенадцатый знак зодиака, планеты Юпитер (с 20 февраля по 20 марта)"
 }
 
+elements_dict = {
+    "fire": ["aries", "leo", "sagittarius"],
+    "earth": ["taurus", "virgo", "capricorn"],
+    "air": ["gemini", "libra", "aquarius"],
+    "water": ["cancer", "scorpio", "pisces"],
+}
+
+
 def index(request):
     zodiacs = list(zodiac_dict)
 
@@ -34,7 +42,7 @@ def index(request):
     return HttpResponse(response)
 
 
-def get_ingo_about_sign_zodiac(request, sign_zodiac: str):
+def get_info_about_sign_zodiac(request, sign_zodiac: str):
     description = zodiac_dict.get(sign_zodiac, None)
     if description:  # Если ввели что-то, что равно одному из ключей(key) в словаре, то возвращаем значение(value) этого ключа.
         return HttpResponse(description)
@@ -42,10 +50,31 @@ def get_ingo_about_sign_zodiac(request, sign_zodiac: str):
         return HttpResponseNotFound(f"Неизвестный знак задиака - {sign_zodiac}.")
 
 
-def get_ingo_about_sign_zodiac_by_number(request, sign_zodiac: int):
+def get_info_about_sign_zodiac_by_number(request, sign_zodiac: int):
     zodiacs = list(zodiac_dict)
     if sign_zodiac > len(zodiacs):
-        return HttpResponseNotFound(f"Вы выбрали несуществующий знак - {sign_zodiac}. Существует только 12 знаков Зодиака.")
-    name_zodiac = zodiacs[sign_zodiac-1]
+        return HttpResponseNotFound(
+            f"Вы выбрали несуществующий знак - {sign_zodiac}. Существует только 12 знаков Зодиака.")
+    name_zodiac = zodiacs[sign_zodiac - 1]
     redirect_url = reverse("horoscope-name", args=[name_zodiac])
     return HttpResponseRedirect(redirect_url)
+
+
+def get_info_about_type(request):
+    elements = list(elements_dict)
+    li_elements = ''
+    for sign in elements:
+        redirect_path_elements = reverse("elements-name", args=[sign])
+        li_elements += f"<li> <a href={redirect_path_elements}> {sign.title()} </a> </li>"
+    response = f'<ul> {li_elements} </ul>'
+    return HttpResponse(response)
+
+
+def get_info_about_elements(request, sign_type: str):
+    result = "Такой стихии не существует."
+    if sign_type in elements_dict:
+        result = ''
+        for i in elements_dict[sign_type]:
+            redirect_path_zodiacs = reverse("horoscope-name", args=[i])
+            result += f"<li> <a href={redirect_path_zodiacs}> {i.title()} </a> </li>"
+    return HttpResponse(f'<ul> {result} </ul>')
