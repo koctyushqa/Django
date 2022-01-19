@@ -17,7 +17,7 @@ days_dict = {
 
 def info_about_week_days(request, day: str):
     description = days_dict.get(day, None)
-    if day:  # Если ввели что-то, что равно одному из ключей(key) в словаре, то возвращаем значение(value).
+    if day:  # Если ввели что-то, что равно одному из ключей(key) в словаре, то возвращаем значение(value) этого ключа.
         return HttpResponse(description)
     else:
         return HttpResponseNotFound(f"{day} - такого дня недели не существует.")
