@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
+from django.template.loader import render_to_string
 
 # Create your views here.
 
@@ -42,12 +43,18 @@ def index(request):
     return HttpResponse(response)
 
 
+# Первый способ (Работает без HTML файла) :
+# def get_info_about_sign_zodiac(request, sign_zodiac: str):
+#     description = zodiac_dict.get(sign_zodiac, None)
+#     if description:  # Если ввели что-то, что равно одному из ключей(key) в словаре, то возвращаем значение(value) этого ключа.
+#         return HttpResponse(f'<h2>{description}</h2>')
+#     else:
+#         return HttpResponseNotFound(f"Неизвестный знак задиака - {sign_zodiac}.")
+
+# Второй способ (Считывает информацию из HTML c помощью render_to_string) :
 def get_info_about_sign_zodiac(request, sign_zodiac: str):
-    description = zodiac_dict.get(sign_zodiac, None)
-    if description:  # Если ввели что-то, что равно одному из ключей(key) в словаре, то возвращаем значение(value) этого ключа.
-        return HttpResponse(description)
-    else:
-        return HttpResponseNotFound(f"Неизвестный знак задиака - {sign_zodiac}.")
+    response = render_to_string('horoscope/info_zodiac.html')
+    return HttpResponse(response)
 
 
 def get_info_about_sign_zodiac_by_number(request, sign_zodiac: int):
@@ -111,4 +118,5 @@ def determine_sign_by_date(request, month: int, day: int):
             result = 'pisces'
 
         url_sign = reverse('horoscope-name', args=[result])
-        return HttpResponse(f'Месяц: {month}. День: {day}. Соответствует знаку Зодиака - <a href={url_sign}>{result}</a>.')
+        return HttpResponse(
+            f'Месяц: {month}. День: {day}. Соответствует знаку Зодиака - <a href={url_sign}>{result}</a>.')
