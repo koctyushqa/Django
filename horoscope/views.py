@@ -56,7 +56,7 @@ def index(request):
 #     response = render_to_string('horoscope/info_zodiac.html')
 #     return HttpResponse(response)
 
-# Третий способ (Использовать render) :
+# Третий способ (Использовать render и HTML) :
 def get_info_about_sign_zodiac(request, sign_zodiac: str):
     return render(request, 'horoscope/info_zodiac.html')
 
