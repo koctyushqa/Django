@@ -51,10 +51,12 @@ def index(request):
 #     else:
 #         return HttpResponseNotFound(f"Неизвестный знак задиака - {sign_zodiac}.")
 
+
 # Второй способ (Считывает информацию из HTML и c помощью render_to_string преобразует её в строку) :
 # def get_info_about_sign_zodiac(request, sign_zodiac: str):
 #     response = render_to_string('horoscope/info_zodiac.html')
 #     return HttpResponse(response)
+
 
 # Третий способ (Использовать render и HTML) :
 def get_info_about_sign_zodiac(request, sign_zodiac: str):
