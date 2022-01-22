@@ -28,19 +28,28 @@ elements_dict = {
 }
 
 
+# Первый вариант (Содержит внутри себя HTML оформление и выводит через HttpResponse) :
+# def index(request):
+#     zodiacs = list(zodiac_dict)
+#
+#     li_elements = ''
+#     for sign in zodiacs:
+#         redirect_path = reverse("horoscope-name", args=[sign])
+#         li_elements += f"<li> <a href={redirect_path}> {sign.title()} </a> </li>"
+#     response = f'''
+#     <ol>
+#         {li_elements}
+#     </ol>
+#     '''
+#     return HttpResponse(response)
+
+
+# Второй вариант (Работает через render и отдельный HTML файл) :
 def index(request):
     zodiacs = list(zodiac_dict)
-
-    li_elements = ''
-    for sign in zodiacs:
-        redirect_path = reverse("horoscope-name", args=[sign])
-        li_elements += f"<li> <a href={redirect_path}> {sign.title()} </a> </li>"
-    response = f'''
-    <ol>
-        {li_elements}
-    </ol>
-    '''
-    return HttpResponse(response)
+    # li_elements += f"<li> <a href={redirect_path}> {sign.title()} </a> </li>"
+    data_zodiacs = {'zodiac_keys_list': zodiacs}
+    return render(request, 'horoscope/index.html', context=data_zodiacs)
 
 
 # Первый способ (Работает без HTML файла) :
