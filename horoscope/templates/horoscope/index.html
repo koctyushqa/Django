@@ -5,9 +5,11 @@
 {% endblock %}
 
 {% block content %}
+    {% include 'includes/navbar.html' %}
     <ol>
         {% for zodiac_key in zodiac_keys_list %}
             <li><a href="{% url 'horoscope-name' sign_zodiac=zodiac_key %}">{{ zodiac_key|title }}</a></li>
         {% endfor %}
     </ol>
+    {% include 'includes/navbar.html' %}
 {% endblock %}
