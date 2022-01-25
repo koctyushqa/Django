@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Приложение гороскоп</h1>
+    <h1>Приложение Гороскоп</h1>
     <ul>
         {% for zodiac_key in zodiac_keys_list %}
             <li><a href="{% url 'horoscope-name' sign_zodiac=zodiac_key %}">{{ zodiac_key|title }}</a></li>

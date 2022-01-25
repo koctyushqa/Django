@@ -72,10 +72,12 @@ def get_info_about_sign_zodiac(request, sign_zodiac: str):
     zodiacs = list(zodiac_dict)
     data = {'description_zodiac': description,
             'sign': sign_zodiac,
-            # Если хотим чтобы в "horoscope-name" в заголовке выводилось название запрашивоемого знака :
-            # 'sign_name': description.split()[0], - затем в info_zodiac.html в <h1> вместо Приложение Гороскоп
-            # вставить {{ sign_name }}
             'list_zodiacs_nav_bar': zodiacs}
+            # Первый способ. Если хотим чтобы в "horoscope-name" в заголовке выводилось название запрашиваемого знака :
+            # 'sign_name': description.split()[0], - затем в info_zodiac.html в <h1> вместо - Приложение Гороскоп -
+            # вставить {{ sign_name }} .
+            # Второй способ: создать свой собственный фильтр (Python Package) - templatetags .
+
     return render(request, 'horoscope/info_zodiac.html', context=data)
 
 
