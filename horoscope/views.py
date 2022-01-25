@@ -10,7 +10,7 @@ zodiac_dict = {
     "taurus": "Телец - второй знак зодиака, планета Венера (с 21 апреля по 21 мая).",
     "gemini": "Близнецы - третий знак зодиака, планета Меркурий (с 22 мая по 21 июня).",
     "cancer": "Рак - четвёртый знак зодиака, Луна (с 22 июня по 22 июля).",
-    "leo": "Лев - пятый знак зодиака, солнце (<i>с 23 июля по 21 августа</i>).",
+    "leo": "Лев - пятый знак зодиака, солнце (с 23 июля по 21 августа).",
     "virgo": "Дева - шестой знак зодиака, планета Меркурий (с 22 августа по 23 сентября).",
     "libra": "Весы - седьмой знак зодиака, планета Венера (с 24 сентября по 23 октября).",
     "scorpio": "Скорпион - восьмой знак зодиака, планета Марс (с 24 октября по 22 ноября).",
@@ -69,8 +69,13 @@ def index(request):
 # Третий способ (Использовать render и HTML) :
 def get_info_about_sign_zodiac(request, sign_zodiac: str):
     description = zodiac_dict.get(sign_zodiac)
+    zodiacs = list(zodiac_dict)
     data = {'description_zodiac': description,
-            'sign': sign_zodiac}
+            'sign': sign_zodiac,
+            # Если хотим чтобы в "horoscope-name" в заголовке выводилось название запрашивоемого знака :
+            # 'sign_name': description.split()[0], - затем в info_zodiac.html в <h1> вместо Приложение Гороскоп
+            # вставить {{ sign_name }}
+            'list_zodiacs_nav_bar': zodiacs}
     return render(request, 'horoscope/info_zodiac.html', context=data)
 
 
