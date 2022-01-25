@@ -47,7 +47,6 @@ elements_dict = {
 # Второй вариант (Работает через render и отдельный HTML файл) :
 def index(request):
     zodiacs = list(zodiac_dict)
-    # li_elements += f"<li> <a href={redirect_path}> {sign.title()} </a> </li>"
     data_zodiacs = {'zodiac_keys_list': zodiacs}
     return render(request, 'horoscope/index.html', context=data_zodiacs)
 
